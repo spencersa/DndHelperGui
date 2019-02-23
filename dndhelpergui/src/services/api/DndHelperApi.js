@@ -6,6 +6,9 @@ export default {
             .then(response => {
                 return response.data
             })
+    },
+    upsertTable(documentModelDto) {
+        return axios.post('/Document/UpsertDocument', documentModelDto)
     }
 }
 

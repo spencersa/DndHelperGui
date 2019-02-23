@@ -1,24 +1,20 @@
 <template>
-  <div>
+  <div class="box">
     <h1 v-show="loading">Loading...</h1>
-    <div v-for="table in tableData" :key="table.Name">
-      {{table.Name}}
-      <ul v-for="value in table.Value" :key="value.id">
-        <tree-view :model="value"></tree-view>
-      </ul>
-      <hr>
+    <div class="row" v-for="table in tableData" :key="table.Name">
+      <rollable-table :table="table"></rollable-table>
     </div>
   </div>
 </template>
 
 <script>
 import DndHelperApi from "@/services/api/DndHelperApi";
-import TreeView from "./TreeView";
+import RollableTable from "./RollableTable";
 
 export default {
   name: "rollable-tables",
   components: {
-    "tree-view": TreeView
+    "rollable-table": RollableTable
   },
   data() {
     return {
@@ -45,10 +41,29 @@ export default {
   methods: {
     getTableValues(value) {
       return value;
+    },
+    getRandomValue: function(values) {
+      this.randomData = "";
+      this.randomData = this.getRandom(values);
+    },
+    getRandom: function(values) {
+      var data = values[Math.floor(Math.random() * values.length)];
+      if (data.children !== undefined && data.children !== null) {
+        return data.name + ":" + this.getRandom(data.children);
+      }
+      return data.name;
     }
   }
 };
 </script>
 
-<style>
+<style scoped>
+.box {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.box .row {
+  flex: 1 1 25%;
+}
 </style>
