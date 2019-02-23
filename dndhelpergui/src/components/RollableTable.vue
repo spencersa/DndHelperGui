@@ -10,8 +10,8 @@
     <ul v-for="value in table.Value.slice(0, numberOfElementsToShow)" :key="value.id">
       <tree-view :model="value" :id="table.Name"></tree-view>
     </ul>
-    <div class="top-bottom-padding">
-      <button v-on:click="numberOfElementsToShow = table.Value.count">Show All</button>
+    <div v-show="table.Value.length > numberOfElementsToShow" class="top-bottom-padding">
+      <button v-on:click="numberOfElementsToShow = table.Value.length">Show All</button>
     </div>
   </div>
 </template>
