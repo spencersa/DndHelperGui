@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
     <rollable-tables></rollable-tables>
   </div>
 </template>
@@ -27,16 +26,5 @@ export default {
 body {
   font-family: Menlo, Consolas, monospace;
   color: #444;
-}
-.item {
-  cursor: pointer;
-}
-.bold {
-  font-weight: bold;
-}
-ul {
-  padding-left: 1em;
-  line-height: 1.5em;
-  list-style-type: dot;
 }
 </style>
