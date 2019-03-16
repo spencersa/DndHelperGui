@@ -1,18 +1,16 @@
 <template>
-  <div>
-    {{table.Name}}
+  <div class="rollable-table">
+    <h2>{{tableName}}</h2>
     <div>
-      <button v-on:click="getRandomValue(table.Value)">Get Random</button>
+      <button class="button-accept" v-on:click="getRandomValue(tableValues)">Get Random</button>
+      <button class="button-add" v-on:click="addChild">Add Item</button>
       <div v-if="randomData" class="top-bottom-padding">{{randomData}}</div>
     </div>
-    <ul v-for="value in table.Value.slice(0, numberOfElementsToShow)" :key="value.id">
-      <tree-view :model="value" :id="table.Name"></tree-view>
+    <ul v-for="value in tableValues.slice(0, numberOfElementsToShow)" :key="value.id">
+      <tree-view :model="value" :id="tableName"></tree-view>
     </ul>
-    <div v-show="table.Value.length > numberOfElementsToShow" class="top-bottom-padding">
-      <button v-on:click="numberOfElementsToShow = table.Value.length">Show All</button>
-    </div>
-    <div v-show="table.Value.length <= numberOfElementsToShow" class="top-bottom-padding">
-      <button v-on:click="addChild">Add Item</button>
+    <div v-show="tableValues.length > numberOfElementsToShow" class="top-bottom-padding">
+      <button v-on:click="numberOfElementsToShow = tableValues.length">Show All</button>
     </div>
   </div>
 </template>
@@ -32,8 +30,14 @@ export default {
   data() {
     return {
       randomData: "",
-      numberOfElementsToShow: 10
+      numberOfElementsToShow: 10,
+      tableName: "",
+      tableValues: Object
     };
+  },
+  mounted() {
+    this.tableName = Object.keys(this.table)[1];
+    this.tableValues = Object.values(this.table)[1];
   },
   methods: {
     getTableValues(value) {
@@ -53,7 +57,7 @@ export default {
     addChild: function() {
       var documentModel = {
         collectionName: "Test",
-        documentId: this.table.Name,
+        documentId: this.table._id,
         json: this.table
       };
       DndHelperApi.upsertTable(documentModel);
@@ -66,5 +70,11 @@ export default {
 .top-bottom-padding {
   padding-top: 20px;
   padding-bottom: 20px;
+}
+
+.rollable-table {
+  border: 1px solid black;
+  border-radius: 25px;
+  padding: 10px;
 }
 </style>

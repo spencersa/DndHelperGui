@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <h1 v-show="loading">Loading...</h1>
-    <div class="row" v-for="table in tableData" :key="table.Name">
+    <div class="row" v-for="table in tableData" :key="table._id">
       <rollable-table :table="table"></rollable-table>
     </div>
   </div>
@@ -65,5 +65,6 @@ export default {
 
 .box .row {
   flex: 1 1 25%;
+  padding: 10px;
 }
 </style>

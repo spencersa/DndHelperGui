@@ -2,7 +2,10 @@
   <li>
     <div :class="{bold: hasChildren}" @click="toggle" @dblclick="changeType">
       {{ model.name }} {{model.children ? ' - ' + model.children.length : '' }}
-      <span class="item" v-if="hasChildren">[{{ open ? '-' : '+' }}]</span>
+      <span
+        class="item"
+        v-if="hasChildren"
+      >[{{ open ? '-' : '+' }}]</span>
     </div>
     <ul v-show="open" v-if="hasChildren">
       <tree-view class="item" v-for="(model, index) in model.children" :key="index" :model="model"></tree-view>
@@ -49,7 +52,7 @@ export default {
         collectionName: "Test",
         documentId: this.id,
         json: this.model
-      }
+      };
       DndHelperApi.upsertTable(documentModel);
     }
   }
