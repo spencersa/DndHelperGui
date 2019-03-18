@@ -58,6 +58,7 @@ export default {
 </script>
 
 <style scoped>
+
 .box {
   display: flex;
   flex-wrap: wrap;
@@ -67,4 +68,5 @@ export default {
   flex: 1 1 25%;
   padding: 10px;
 }
+
 </style>

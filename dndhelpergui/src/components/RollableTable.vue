@@ -4,11 +4,26 @@
     <div>
       <button class="button-accept" v-on:click="getRandomValue(tableValues)">Get Random</button>
       <button class="button-add" v-on:click="addChild">Add Item</button>
-      <div v-if="randomData" class="top-bottom-padding">{{randomData}}</div>
+      <div v-if="randomData" class="random-data top-bottom-padding">{{randomData}}</div>
     </div>
-    <ul v-for="value in tableValues.slice(0, numberOfElementsToShow)" :key="value.id">
-      <tree-view :model="value" :id="tableName"></tree-view>
-    </ul>
+    <table v-if="tableValues">
+      <thead>
+        <tr>
+          <td>
+            1d{{tableValues.length}}
+          </td>
+          <td>
+            {{tableName}}
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(value, index) in tableValues.slice(0, numberOfElementsToShow)" :key="value.id">
+          <td style="width: 25%;">{{index + 1}}</td>
+          <tree-view style="width: 75%;" :model="value" :id="tableName"></tree-view>
+        </tr>
+      </tbody>
+    </table>
     <div v-show="tableValues.length > numberOfElementsToShow" class="top-bottom-padding">
       <button v-on:click="numberOfElementsToShow = tableValues.length">Show All</button>
     </div>
@@ -32,7 +47,7 @@ export default {
       randomData: "",
       numberOfElementsToShow: 10,
       tableName: "",
-      tableValues: Object
+      tableValues: []
     };
   },
   mounted() {
@@ -67,14 +82,42 @@ export default {
 </script>
 
 <style scoped>
+
 .top-bottom-padding {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .rollable-table {
-  border: 1px solid black;
   border-radius: 25px;
   padding: 10px;
 }
+
+.random-data {
+  margin: 10px;
+  background-color: #faf7ea;
+  border-style: solid;
+  border-width: 7px;
+  border-image: url("../assets/dataBorder.png") 12 stretch;
+  border-image-outset: 4px;
+  box-shadow: 0 0 6px #faf7ea;
+}
+
+h2 {
+  color: #58180D;
+  border-bottom: 2px solid #c9ad6a;
+}
+
+thead {
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: #e0e5c1
+}
+
+table {
+  margin: 10px;
+}
+
 </style>

@@ -23,27 +23,27 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
 body {
   font-family: Menlo, Consolas, monospace;
   color: #444;
+  background-color: #EEE5CE;
+  background-image: url("./assets/background-image.jpg");
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
 button {
-  color: #fff;
-  text-transform: uppercase;
-  padding: 20px;
-  border-radius: 5px;
-  display: inline-block;
-  border: none;
   cursor: pointer;
-}
-
-.button-accept {
-  background: #2506d4;
-}
-
-.button-add {
-  background: #157202;
+  color: black;
+  margin: 20px;
+  display: inline-block;
+  border-style: solid;
+  border-image-outset: 21px 17px;
+  border-image-repeat: stretch;
+  border-image-source: url("./assets/buttonBoarder.png");
+  border-image-slice: 150 200 150 200;
+  border-image-width: 47px;
 }
 
 button:hover {

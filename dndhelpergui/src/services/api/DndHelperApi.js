@@ -11,6 +11,3 @@ export default {
         return axios.post('/Document/UpsertDocument', documentModelDto)
     }
 }
-
-///Document/GetDocument?collectionName=Test&documentId=Classes
-///Document/GetAllDocuments?collectionName=Test

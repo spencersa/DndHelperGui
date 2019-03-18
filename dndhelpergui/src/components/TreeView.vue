@@ -1,17 +1,16 @@
 <template>
-  <li>
-    <div :class="{bold: hasChildren}" @click="toggle" @dblclick="changeType">
-      {{ model.name }} {{model.children ? ' - ' + model.children.length : '' }}
+  <div>
+    <div :class="{item: hasChildren}" @click="toggle" @dblclick="changeType">
+      {{ model.name }} {{model.children ? ' - 1d' + model.children.length : '' }}
       <span
         class="item"
         v-if="hasChildren"
       >[{{ open ? '-' : '+' }}]</span>
     </div>
-    <ul v-show="open" v-if="hasChildren">
-      <tree-view class="item" v-for="(model, index) in model.children" :key="index" :model="model"></tree-view>
-      <li class="add" @click="addChild">+</li>
-    </ul>
-  </li>
+    <div v-show="open" v-if="hasChildren">
+      <tree-view v-for="(model, index) in model.children" :key="index" :model="model"></tree-view>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -62,13 +61,6 @@ export default {
 <style scoped>
 .item {
   cursor: pointer;
-}
-.bold {
   font-weight: bold;
-}
-ul {
-  padding-left: 1em;
-  line-height: 1.5em;
-  list-style-type: dot;
 }
 </style>
