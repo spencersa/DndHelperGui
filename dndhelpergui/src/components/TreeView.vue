@@ -45,15 +45,17 @@ export default {
         this.addChild();
         this.open = true;
       }
-    },
-    addChild: function() {
-      var documentModel = {
-        collectionName: "Test",
-        documentId: this.id,
-        json: this.model
-      };
-      DndHelperApi.upsertTable(documentModel);
     }
+    // addChild: function() {
+    //   var uploadJson = this.model;
+    //   console.log(uploadJson);
+    //   var documentModel = {
+    //     collectionName: "Test",
+    //     documentId: this.id,
+    //     json: this.model
+    //   };
+    //   DndHelperApi.upsertTable(documentModel);
+    // }
   }
 };
 </script>
