@@ -1,14 +1,23 @@
 <template>
   <div>
-    <div :class="{item: hasChildren}" @click="toggle" @dblclick="changeType">
-      {{ model.name }} {{model.children ? ' - 1d' + model.children.length : '' }}
-      <span
-        class="item"
-        v-if="hasChildren"
-      >[{{ open ? '-' : '+' }}]</span>
-    </div>
+    <span>
+      <div :class="{item: hasChildren}" @click="toggle" @dblclick="changeType">
+        {{ index + 1 + " - " + model.name }} {{model.children ? ' - 1d' + model.children.length : '' }}
+        <span
+          class="item"
+          v-if="hasChildren"
+        >[{{ open ? '-' : '+' }}]</span>
+      </div>
+    </span>
     <div v-show="open" v-if="hasChildren">
-      <tree-view v-for="(model, index) in model.children" :key="index" :model="model"></tree-view>
+      <tree-view
+        v-for="(model, index) in model.children"
+        :key="index"
+        :model="model"
+        :index="index"
+        :depth="depth + 1"
+        :style="indent"
+      ></tree-view>
     </div>
   </div>
 </template>
@@ -21,7 +30,9 @@ export default {
   name: "tree-view",
   props: {
     model: Object,
-    id: String
+    id: String,
+    index: Number,
+    depth: Number
   },
   data: function() {
     return {
@@ -31,6 +42,9 @@ export default {
   computed: {
     hasChildren: function() {
       return this.model.children && this.model.children.length;
+    },
+    indent: function() {
+      return { transform: `translate(${this.depth * 30}px)` };
     }
   },
   methods: {
@@ -46,16 +60,6 @@ export default {
         this.open = true;
       }
     }
-    // addChild: function() {
-    //   var uploadJson = this.model;
-    //   console.log(uploadJson);
-    //   var documentModel = {
-    //     collectionName: "Test",
-    //     documentId: this.id,
-    //     json: this.model
-    //   };
-    //   DndHelperApi.upsertTable(documentModel);
-    // }
   }
 };
 </script>

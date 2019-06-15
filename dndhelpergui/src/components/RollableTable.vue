@@ -3,21 +3,15 @@
     <h2>{{tableName}}</h2>
     <div>
       <button class="button-accept" v-on:click="getRandomValue(tableValues)">Get Random</button>
-      <!-- <button class="button-add" v-on:click="addChild">Add Item</button> -->
       <button class="button-add" v-on:click="showModal()">Add Item</button>
-      <div v-if="randomData" class="random-data top-bottom-padding">{{randomData}}</div>
+      <transition name="fade">
+        <div v-if="randomData" class="random-data top-bottom-padding">{{randomData}}</div>
+      </transition>
     </div>
     <table v-if="tableValues">
-      <thead>
-        <tr>
-          <td>1d{{tableValues.length}}</td>
-          <td>{{tableName}}</td>
-        </tr>
-      </thead>
       <tbody>
         <tr v-for="(value, index) in tableValues.slice(0, numberOfElementsToShow)" :key="value.id">
-          <td style="width: 25%;">{{index + 1}}</td>
-          <tree-view style="width: 75%;" :model="value" :id="tableName"></tree-view>
+          <tree-view :model="value" :id="tableName" :index="index" :depth="1"></tree-view>
         </tr>
       </tbody>
     </table>
@@ -25,7 +19,12 @@
       <button v-on:click="numberOfElementsToShow = tableValues.length">Show All</button>
     </div>
 
-    <modal :table="this.table" :tableName="this.tableName" v-show="isModalVisible" @close="closeModal"/>
+    <modal
+      :table="this.table"
+      :tableName="this.tableName"
+      v-show="isModalVisible"
+      @close="closeModal"
+    />
   </div>
 </template>
 
@@ -61,7 +60,6 @@ export default {
       return value;
     },
     getRandomValue: function(values) {
-      this.randomData = "";
       this.randomData = this.getRandom(values);
     },
     getRandom: function(values) {
@@ -140,5 +138,15 @@ button:hover {
   -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
   box-shadow: 5px 40px -10px rgba(0, 0, 0, 0.57);
   transition: all 0.4s ease 0s;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease-out;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
