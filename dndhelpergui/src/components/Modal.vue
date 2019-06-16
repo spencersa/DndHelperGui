@@ -4,21 +4,21 @@
     <div class="modal">
       <header class="modal-header">
         <slot name="header">
-          <button type="button" class="btn-close" @click="close">x</button>
+          <div class="modal-close" @click="close">X</div>
         </slot>
       </header>
       <section class="modal-body">
         <slot name="body">
           <p>Value to add:</p>
-          {{table}}
-          {{tableName}}
           <input v-model="newValue">
         </slot>
       </section>
       <footer class="modal-footer">
         <slot name="footer">
-          <button type="button" class v-on:click="addChild(newValue)">Add</button>
-          <button type="button" class @click="close">Close</button>
+          <span>
+            <button type="button" class="button add" v-on:click="addChild(newValue)">Add</button>
+            <button type="button" class="button cancel" @click="close">Close</button>
+          </span>
         </slot>
       </footer>
     </div>
@@ -76,13 +76,25 @@ export default {
 .modal-header,
 .modal-footer {
   padding: 15px;
-  display: flex;
 }
 
 .modal-header {
   border-bottom: 1px solid #eeeeee;
   color: #4aae9b;
   justify-content: space-between;
+}
+
+.modal-close {
+  float: right;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  letter-spacing: 1px;
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+  box-shadow: 5px 40px -10px rgba(0, 0, 0, 0.57);
+  transition: all 0.4s ease 0s;
 }
 
 .modal-footer {
@@ -95,20 +107,32 @@ export default {
   padding: 20px 10px;
 }
 
-.btn-close {
+.button {
+  color: #fff !important;
+  text-transform: uppercase;
+  padding: 15px;
+  border-radius: 5px;
+  display: inline-block;
   border: none;
-  font-size: 20px;
-  padding: 20px;
-  cursor: pointer;
-  font-weight: bold;
-  color: #4aae9b;
-  background: transparent;
 }
 
-.btn-green {
-  color: white;
-  background: #4aae9b;
-  border: 1px solid #4aae9b;
-  border-radius: 2px;
+.add {
+  background: #60a3bc;
+  float: left;
+}
+
+.cancel {
+  background: #ed3330;
+  float: right;
+}
+
+.button:hover {
+  background: #434343;
+  cursor: pointer;
+  letter-spacing: 1px;
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+  box-shadow: 5px 40px -10px rgba(0, 0, 0, 0.57);
+  transition: all 0.4s ease 0s;
 }
 </style>
